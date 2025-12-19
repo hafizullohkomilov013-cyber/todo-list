@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/main.sass">
+  </head>
+  <body>
+    <div class="todo-container">
+      <h1>Todo List</h1>
+
+      <form class="todo-input">
+        <input id="input" type="text" placeholder="Vazifani kiriting..." />
+        <button type="submit">Qo‘shish</button>
+      </form>
+
+      <ul class="todo-list">
+        <li class="todo-item" >
+          <span class="todo-text">Misol todo</span>
+
+          <div class="todo-actions">
+            <button  class="edit-btn" title="O‘zgartirish">✏️</button>
+            <button  class="delete-btn" title="O‘chirish">🗑</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/getDate.js"></script>
+  </body>
+</html>
