@@ -11,7 +11,7 @@ export async function getTodo(params) {
     console.log(error);
   }
 }
-getTodo("http://localhost:8080/todos");20
+getTodo("http://localhost:8080/todos");
 export async function postTodo(params, title) {
   try {
     let res = await fetch(params, {
@@ -38,8 +38,9 @@ export async function deleteTodo(url, id) {
     if (!res.ok) {
       throw new Error("O‘chirishda xatolik");
     }
+    alert("Rostan ham o'chirilsinmi")
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 }
 

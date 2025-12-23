@@ -11,33 +11,33 @@ FormEl.addEventListener("submit", (e) => {
   getTodo("http://localhost:8080/todos");
   FormEl.reset()
 });
-UlEl.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-btn")) {
-    const li = e.target.closest(".todo-item");
-    const id = li.dataset.id;
-
-    deleteTodo("http://localhost:8080/todos", id).then(() => {
-      getTodo("http://localhost:8080/todos");
-    });
-  }
-})
 export function UpdateUi(list) {
-
+  
   UlEl.innerHTML = ""
   list.forEach((todo) => {
     
     let { id, title, completed } = todo;
-
+    
     UlEl.innerHTML += `
-         <li class="todo-item" data-id="${id}" >
-          <span class="todo-text">${title}</span>
-
-          <div class="todo-actions">
-            <button class="edit-btn" title="O‘zgartirish">✏️</button>
-            <button class="delete-btn" title="O‘chirish">🗑</button>
-          </div>
+    <li class="todo-item" data-id="${id}" >
+    <span class="todo-text">${title}</span>
+    
+    <div class="todo-actions">
+    <button class="edit-btn" title="O‘zgartirish">✏️</button>
+    <button class="delete-btn" title="O‘chirish">🗑</button>
+    </div>
         </li>
         
         `;
-  });
-}
+      });
+    }
+    
+    UlEl.addEventListener("click",async (e) => {
+      if (e.target.classList.contains("delete-btn")) {
+        const li = e.target.closest(".todo-item");
+        const id = li.dataset.id;
+    
+      await  deleteTodo("http://localhost:8080/todos", id)
+      await  getTodo("http://localhost:8080/todos");
+      }
+    })
