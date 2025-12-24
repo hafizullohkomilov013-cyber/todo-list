@@ -51,14 +51,16 @@ export async function  patchTodo(params, title) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({title})
+      body: JSON.stringify({title, title})
     });
 
     if(!res.ok){
       throw new Error("patchda muammo bor")
     }
     let data  = res.json()
-  } catch (error) {
+    console.log(data);
     
+  } catch (error) {
+    alert(error)
   }
 }

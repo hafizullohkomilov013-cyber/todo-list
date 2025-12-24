@@ -7,7 +7,7 @@ let ModalInput = document.querySelector("#modalInput")
 
 
 
-import { getTodo, postTodo, deleteTodo } from "./getDate.js";
+import { getTodo, postTodo, deleteTodo, patchTodo  } from "./getDate.js";
 FormEl.addEventListener("submit", (e) => {
   e.preventDefault()
   console.log(FormEl.input.value);
@@ -16,12 +16,16 @@ FormEl.addEventListener("submit", (e) => {
   FormEl.reset()
 });
 
-ModalForm.addEventListener("submit", (e) => {
+function Edit (id){
+  ModalForm.addEventListener("submit", (e) => {
   e.preventDefault()
+
+  patchTodo(`http://localhost:8080/todos/${id}`, ModalForm.modalInput.value);
   console.log(ModalForm.modalInput.value);
-  
+  getTodo(`http://localhost:8080/todos`);
 
 })
+}
 
 export function UpdateUi(list) {
   
@@ -48,17 +52,16 @@ export function UpdateUi(list) {
      if (e.target.classList.contains("delete-btn")) {
        const li = e.target.closest(".todo-item");
        const id = li.dataset.id;
-       console.log(id);
        
 
        await deleteTodo("http://localhost:8080/todos", id);
        await getTodo("http://localhost:8080/todos");
      }
      if(e.target.classList.contains("edit-btn")){
-      console.log(e.target.dataset.id);
       
       openModal()
       let EditId = e.target.dataset.id
+      Edit(EditId)
       ModalInput.value =
         e.target.parentElement.previousElementSibling.textContent;
      }
