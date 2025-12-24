@@ -44,3 +44,21 @@ export async function deleteTodo(url, id) {
   }
 }
 
+export async function  patchTodo(params, title) {
+  try {
+    let res = await fetch(params, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({title})
+    });
+
+    if(!res.ok){
+      throw new Error("patchda muammo bor")
+    }
+    let data  = res.json()
+  } catch (error) {
+    
+  }
+}

@@ -1,8 +1,11 @@
 let FormEl = document.querySelector(".todo-input");
 let UlEl = document.querySelector(".todo-list");
 let Modal = document.querySelector(".modal")
+let ModalForm = document.querySelector(".modal-form");
+let ModalInput = document.querySelector("#modalInput")
 
-Modal.classList
+
+
 
 import { getTodo, postTodo, deleteTodo } from "./getDate.js";
 FormEl.addEventListener("submit", (e) => {
@@ -12,19 +15,27 @@ FormEl.addEventListener("submit", (e) => {
   getTodo("http://localhost:8080/todos");
   FormEl.reset()
 });
+
+ModalForm.addEventListener("submit", (e) => {
+  e.preventDefault()
+  console.log(ModalForm.modalInput.value);
+  
+
+})
+
 export function UpdateUi(list) {
   
   UlEl.innerHTML = ""
   list.forEach((todo) => {
     
-    let { id, title, completed } = todo;
+    let { id, title } = todo;
     
     UlEl.innerHTML += `
     <li class="todo-item" data-id="${id}" >
     <span class="todo-text">${title}</span>
     
     <div class="todo-actions">
-    <button data-id"${id}" class="edit-btn" title="O‘zgartirish">✏️</button>
+    <button data-id="${id}" class="edit-btn" title="O‘zgartirish">✏️</button>
     <button class="delete-btn" title="O‘chirish">🗑</button>
     </div>
         </li>
@@ -37,12 +48,19 @@ export function UpdateUi(list) {
      if (e.target.classList.contains("delete-btn")) {
        const li = e.target.closest(".todo-item");
        const id = li.dataset.id;
+       console.log(id);
+       
 
        await deleteTodo("http://localhost:8080/todos", id);
        await getTodo("http://localhost:8080/todos");
      }
      if(e.target.classList.contains("edit-btn")){
+      console.log(e.target.dataset.id);
+      
       openModal()
+      let EditId = e.target.dataset.id
+      ModalInput.value =
+        e.target.parentElement.previousElementSibling.textContent;
      }
    });
 
@@ -52,7 +70,6 @@ export function UpdateUi(list) {
    openModal()
 
    document.addEventListener("keydown", (e) =>{
-    console.log(e);
     
     if(e.key == "Enter"){
       openModal()
